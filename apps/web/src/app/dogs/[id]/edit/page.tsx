@@ -58,7 +58,9 @@ export default function EditDogPage({ params }: { params: Promise<{ id: string }
         <CardContent>
           <DogForm
             dog={dog}
-            onSubmit={(data) => mutation.mutateAsync(data)}
+            onSubmit={async (data) => {
+              await mutation.mutateAsync(data);
+            }}
             loading={mutation.isPending}
           />
         </CardContent>

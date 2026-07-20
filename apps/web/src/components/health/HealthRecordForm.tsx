@@ -3,7 +3,7 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import type { CreateHealthRecordDto, HealthRecord, HealthRecordType } from '@/types';
+import type { CreateHealthRecordDto, HealthRecord, HealthRecordType, HealthRecordStatus } from '@/types';
 import { LABELS } from '@/types';
 import { Input } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
@@ -52,7 +52,16 @@ export function HealthRecordForm({ record, onSubmit, onCancel, loading }: Health
   });
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+    <form
+      onSubmit={handleSubmit((data) =>
+        onSubmit({
+          ...data,
+          type: data.type as HealthRecordType,
+          status: data.status as HealthRecordStatus | undefined,
+        }),
+      )}
+      className="space-y-4"
+    >
       <Select
         label="Tipo"
         options={Object.entries(LABELS.healthType).map(([value, label]) => ({

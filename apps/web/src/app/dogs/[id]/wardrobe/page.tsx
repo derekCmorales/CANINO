@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { apiFetch, resolveFileUrl } from '@/lib/api';
-import type { CreateWardrobeItemDto, Dog, WardrobeItem } from '@/types';
+import type { CreateWardrobeItemDto, Dog, WardrobeItem, WardrobeItemType } from '@/types';
 import { LABELS } from '@/types';
 import { DogNav } from '@/components/dogs/DogNav';
 import { LoadingSpinner } from '@/components/shared/LoadingSpinner';
@@ -137,7 +137,12 @@ export default function DogWardrobePage({ params }: { params: Promise<{ id: stri
 
       <Modal open={modalOpen} onClose={() => setModalOpen(false)} title="Nueva prenda">
         <form
-          onSubmit={handleSubmit((data) => createMutation.mutate(data))}
+          onSubmit={handleSubmit((data) =>
+            createMutation.mutate({
+              ...data,
+              itemType: data.itemType as WardrobeItemType,
+            }),
+          )}
           className="space-y-4"
         >
           <Select

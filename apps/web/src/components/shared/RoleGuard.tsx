@@ -3,7 +3,7 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 import { getCurrentUser, getDashboardPath } from '@/lib/auth';
-import type { UserRole } from '@/types';
+import { UserRole } from '@/types';
 import { LoadingSpinner } from './LoadingSpinner';
 
 interface RoleGuardProps {

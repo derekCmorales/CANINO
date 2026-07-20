@@ -12,8 +12,9 @@ import type {
   Dog,
   MealLog,
   NutritionPlan,
+  LifeStage,
 } from '@/types';
-import { LABELS, LifeStage } from '@/types';
+import { LABELS } from '@/types';
 import { formatDateShort } from '@/lib/utils';
 import { DogNav } from '@/components/dogs/DogNav';
 import { LoadingSpinner } from '@/components/shared/LoadingSpinner';
@@ -155,7 +156,12 @@ export default function DogNutritionPage({ params }: { params: Promise<{ id: str
 
       <Modal open={planModal} onClose={() => setPlanModal(false)} title="Nuevo plan nutricional">
         <form
-          onSubmit={planForm.handleSubmit((data) => planMutation.mutate(data))}
+          onSubmit={planForm.handleSubmit((data) =>
+            planMutation.mutate({
+              ...data,
+              lifeStage: data.lifeStage as LifeStage,
+            }),
+          )}
           className="space-y-4"
         >
           <Select

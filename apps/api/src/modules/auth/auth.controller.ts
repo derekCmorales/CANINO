@@ -53,8 +53,8 @@ export class AuthController {
     });
   }
 
+  @Public()
   @Post('refresh')
-  @ApiBearerAuth()
   @ApiOperation({ summary: 'Renovar token de acceso' })
   async refresh(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
     const refreshToken = req.cookies?.refresh_token as string | undefined;

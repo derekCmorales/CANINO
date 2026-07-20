@@ -3,6 +3,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { apiFetch } from '@/lib/api';
 import type { User, UserRole, AdminSubtype } from '@/types';
+import { AdminSubtype as AdminSubtypeEnum } from '@/types';
 import { LABELS } from '@/types';
 import { formatDateShort } from '@/lib/utils';
 import { LoadingSpinner } from '@/components/shared/LoadingSpinner';
@@ -95,7 +96,7 @@ export default function AdminUsersPage() {
                     roleMutation.mutate({
                       id: user.id,
                       role,
-                      adminSubtype: role === 'admin' ? 'operations' : undefined,
+                      adminSubtype: role === 'admin' ? AdminSubtypeEnum.OPERATIONS : undefined,
                     });
                   }}
                 >

@@ -31,7 +31,12 @@ export default function NewDogPage() {
           <CardTitle>Registrar nuevo perro</CardTitle>
         </CardHeader>
         <CardContent>
-          <DogForm onSubmit={(data) => mutation.mutateAsync(data)} loading={mutation.isPending} />
+          <DogForm
+            onSubmit={async (data) => {
+              await mutation.mutateAsync(data);
+            }}
+            loading={mutation.isPending}
+          />
         </CardContent>
       </Card>
     </div>

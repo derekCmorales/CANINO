@@ -55,7 +55,16 @@ export function DogForm({ dog, onSubmit, loading }: DogFormProps) {
   const photoUrl = watch('photoUrl');
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+    <form
+      onSubmit={handleSubmit((data) =>
+        onSubmit({
+          ...data,
+          gender: data.gender as DogGender,
+          breedId: data.breedId || undefined,
+        }),
+      )}
+      className="space-y-5"
+    >
       <Input label="Nombre" error={errors.name?.message} {...register('name')} />
 
       <Select

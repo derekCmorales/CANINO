@@ -12,6 +12,7 @@ import type {
   Dog,
   ExerciseLog,
   GrowthRecord,
+  ExerciseIntensity,
 } from '@/types';
 import { LABELS } from '@/types';
 import { formatDateShort } from '@/lib/utils';
@@ -164,7 +165,12 @@ export default function DogGrowthPage({ params }: { params: Promise<{ id: string
 
       <Modal open={exerciseModal} onClose={() => setExerciseModal(false)} title="Registrar ejercicio">
         <form
-          onSubmit={exerciseForm.handleSubmit((data) => exerciseMutation.mutate(data))}
+          onSubmit={exerciseForm.handleSubmit((data) =>
+            exerciseMutation.mutate({
+              ...data,
+              intensity: data.intensity as ExerciseIntensity,
+            }),
+          )}
           className="space-y-4"
         >
           <Input label="Tipo de actividad" {...exerciseForm.register('activityType')} />
