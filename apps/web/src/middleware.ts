@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { AdminSubtype, UserRole } from '@canino/shared';
 
 const PUBLIC_PATHS = ['/', '/login', '/register'];
 
@@ -8,10 +9,10 @@ function isPublicPath(pathname: string): boolean {
 }
 
 function getRoleHome(role: string, adminSubtype?: string): string {
-  if (role === 'veterinarian') return '/vet';
-  if (role === 'admin') {
-    if (adminSubtype === 'catalog_manager') return '/admin/catalogs';
-    if (adminSubtype === 'operations') return '/admin/users';
+  if (role === UserRole.VETERINARIAN) return '/vet';
+  if (role === UserRole.ADMIN) {
+    if (adminSubtype === AdminSubtype.CATALOG_MANAGER) return '/admin/catalogs';
+    if (adminSubtype === AdminSubtype.OPERATIONS) return '/admin/users';
     return '/admin/overview';
   }
   return '/dashboard';
@@ -45,20 +46,20 @@ export function middleware(request: NextRequest) {
   const vetRoutes = pathname.startsWith('/vet');
   const adminRoutes = pathname.startsWith('/admin');
 
-  if (ownerRoutes && role !== 'owner') {
-    return NextResponse.redirect(new URL(getRoleHome(role ?? 'owner', adminSubtype), request.url));
+  if (ownerRoutes && role !== UserRole.OWNER) {
+    return NextResponse.redirect(new URL(getRoleHome(role ?? UserRole.OWNER, adminSubtype), request.url));
   }
 
-  if (vetRoutes && role !== 'veterinarian' && role !== 'admin') {
-    return NextResponse.redirect(new URL(getRoleHome(role ?? 'owner', adminSubtype), request.url));
+  if (vetRoutes && role !== UserRole.VETERINARIAN && role !== UserRole.ADMIN) {
+    return NextResponse.redirect(new URL(getRoleHome(role ?? UserRole.OWNER, adminSubtype), request.url));
   }
 
-  if (adminRoutes && role !== 'admin') {
-    return NextResponse.redirect(new URL(getRoleHome(role ?? 'owner', adminSubtype), request.url));
+  if (adminRoutes && role !== UserRole.ADMIN) {
+    return NextResponse.redirect(new URL(getRoleHome(role ?? UserRole.OWNER, adminSubtype), request.url));
   }
 
   if (pathname === '/admin') {
-    return NextResponse.redirect(new URL(getRoleHome('admin', adminSubtype), request.url));
+    return NextResponse.redirect(new URL(getRoleHome(UserRole.ADMIN, adminSubtype), request.url));
   }
 
   return NextResponse.next();

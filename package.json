@@ -2,6 +2,10 @@
   "name": "portal-canino",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": ">=20.0.0 <21.0.0",
+    "npm": ">=10.0.0"
+  },
   "workspaces": [
     "apps/*",
     "packages/*"
@@ -9,10 +13,12 @@
   "scripts": {
     "dev:api": "npm run start:dev --workspace=apps/api",
     "dev:web": "npm run dev --workspace=apps/web",
+    "build:shared": "npm run build --workspace=@canino/shared",
     "build:api": "npm run build --workspace=apps/api",
     "build:web": "npm run build --workspace=apps/web",
     "seed": "npm run seed --workspace=apps/api",
     "docker:up": "docker compose up --build",
-    "docker:down": "docker compose down"
+    "docker:down": "docker compose down",
+    "postinstall": "npm run build:shared"
   }
 }

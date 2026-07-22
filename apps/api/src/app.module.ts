@@ -70,6 +70,8 @@ const entities = [
         type: 'postgres',
         url: config.get<string>('DATABASE_URL'),
         entities,
+        // ADVERTENCIA: synchronize:true puede causar pérdida de datos en dev si se borran entidades.
+        // Solo usar con base de datos de desarrollo desechable. En production queda desactivado.
         synchronize: config.get<string>('NODE_ENV', 'development') !== 'production',
         ssl: config.get<string>('DATABASE_SSL') === 'true' ? { rejectUnauthorized: false } : false,
       }),

@@ -31,6 +31,7 @@ services:
       PORT: 3001
       WHATSAPP_MOCK: "true"
       NODE_ENV: production
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:3000}
     volumes:
       - uploads_data:/app/uploads
     depends_on:
@@ -42,11 +43,12 @@ services:
       context: .
       dockerfile: Dockerfile.web
       args:
-        NEXT_PUBLIC_API_URL: http://localhost:3001/api/v1
+        # Override en staging/prod: NEXT_PUBLIC_API_URL=https://api.tudominio.com/api/v1
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:3001/api/v1}
     ports:
       - "3000:3000"
     environment:
-      NEXT_PUBLIC_API_URL: http://localhost:3001/api/v1
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:3001/api/v1}
     depends_on:
       - api
 

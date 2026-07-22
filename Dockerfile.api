@@ -2,7 +2,10 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 COPY package.json package-lock.json* ./
 COPY apps/api/package.json ./apps/api/
-RUN npm install --workspace=apps/api
+COPY packages/shared/package.json ./packages/shared/
+COPY packages/shared ./packages/shared
+RUN npm install --workspace=apps/api --workspace=@canino/shared --ignore-scripts
+RUN npm run build --workspace=@canino/shared
 COPY apps/api ./apps/api
 RUN npm run build --workspace=apps/api
 
@@ -10,8 +13,11 @@ FROM node:20-alpine
 WORKDIR /app
 COPY package.json package-lock.json* ./
 COPY apps/api/package.json ./apps/api/
-RUN npm install --workspace=apps/api --omit=dev
+COPY packages/shared/package.json ./packages/shared/
+COPY packages/shared ./packages/shared
+RUN npm install --workspace=apps/api --workspace=@canino/shared --omit=dev --ignore-scripts
 COPY --from=builder /app/apps/api/dist ./apps/api/dist
+COPY --from=builder /app/packages/shared/dist ./packages/shared/dist
 RUN mkdir -p /app/uploads/photos /app/uploads/docs /app/uploads/memories
 EXPOSE 3001
 CMD ["node", "apps/api/dist/main.js"]

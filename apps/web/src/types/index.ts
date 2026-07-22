@@ -1,81 +1,38 @@
+export {
+  UserRole,
+  AdminSubtype,
+  DogGender,
+  DogStatus,
+  HealthRecordType,
+  HealthRecordStatus,
+  LifeStage,
+  ExerciseIntensity,
+  WardrobeItemType,
+  SourceType,
+  NotificationType,
+  AuditAction,
+} from '@canino/shared';
+
+import type {
+  UserRole,
+  AdminSubtype,
+  DogGender,
+  DogStatus,
+  HealthRecordType,
+  HealthRecordStatus,
+  LifeStage,
+  ExerciseIntensity,
+  WardrobeItemType,
+  SourceType,
+  NotificationType,
+  AuditAction,
+} from '@canino/shared';
+
 export interface ApiResponse<T = unknown> {
   success: boolean;
   data?: T | null;
   error?: string | null;
   meta?: Record<string, unknown>;
-}
-
-export enum UserRole {
-  OWNER = 'owner',
-  VETERINARIAN = 'veterinarian',
-  ADMIN = 'admin',
-}
-
-export enum AdminSubtype {
-  SUPER_ADMIN = 'super_admin',
-  CATALOG_MANAGER = 'catalog_manager',
-  OPERATIONS = 'operations',
-}
-
-export enum DogGender {
-  MALE = 'male',
-  FEMALE = 'female',
-}
-
-export enum DogStatus {
-  ACTIVE = 'active',
-  DECEASED = 'deceased',
-}
-
-export enum HealthRecordType {
-  VACCINE = 'vaccine',
-  CONSULTATION = 'consultation',
-  MEDICATION = 'medication',
-  ALLERGY = 'allergy',
-}
-
-export enum HealthRecordStatus {
-  PENDING = 'pending',
-  APPLIED = 'applied',
-  OVERDUE = 'overdue',
-}
-
-export enum LifeStage {
-  PUPPY = 'puppy',
-  ADULT = 'adult',
-  SENIOR = 'senior',
-}
-
-export enum ExerciseIntensity {
-  LOW = 'low',
-  MEDIUM = 'medium',
-  HIGH = 'high',
-}
-
-export enum WardrobeItemType {
-  CLOTHING = 'clothing',
-  COLLAR = 'collar',
-  LEASH = 'leash',
-  TAG = 'tag',
-  OTHER = 'other',
-}
-
-export enum SourceType {
-  BREEDER = 'breeder',
-  SHELTER = 'shelter',
-  OTHER = 'other',
-}
-
-export enum NotificationType {
-  VACCINE_DUE = 'vaccine_due',
-  VACCINE_OVERDUE = 'vaccine_overdue',
-  SYSTEM = 'system',
-}
-
-export enum AuditAction {
-  CREATE = 'create',
-  UPDATE = 'update',
-  DELETE = 'delete',
 }
 
 export interface UserProfile {
