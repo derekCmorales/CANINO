@@ -35,8 +35,14 @@ docker compose exec api npm run seed
 
 ### Requisitos
 
-- Node.js 20+
+- Node.js **20** (ver `.nvmrc`; Docker usa `node:20-alpine`)
+- npm 10+
 - PostgreSQL 16
+
+```bash
+# Con nvm
+nvm use
+```
 
 ### Configuración
 
@@ -86,7 +92,10 @@ npm run seed
 ├── apps/
 │   ├── api/          # NestJS — REST API + Swagger
 │   └── web/          # Next.js — UI en español
+├── packages/
+│   └── shared/       # Enums y tipos compartidos (@canino/shared)
 ├── docker-compose.yml
+├── .nvmrc            # Node.js 20
 ├── PLAN_IMPLEMENTACION.md
 └── README.md
 ```
@@ -139,8 +148,15 @@ Ver `.env.example` para la lista completa. Las más importantes:
 ```env
 DATABASE_URL=postgresql://portal:portal@localhost:5432/dogportal
 JWT_SECRET=change-me-in-production
+CORS_ORIGIN=http://localhost:3000
 NEXT_PUBLIC_API_URL=http://localhost:3001/api/v1
 WHATSAPP_MOCK=true
+```
+
+En Docker/staging/producción, pasa la URL pública del API al build del frontend:
+
+```bash
+NEXT_PUBLIC_API_URL=https://api.tudominio.com/api/v1 docker compose up --build
 ```
 
 ## Scripts
@@ -148,6 +164,7 @@ WHATSAPP_MOCK=true
 ```bash
 npm run dev:api      # API en modo desarrollo
 npm run dev:web      # Frontend en modo desarrollo
+npm run build:shared # Compilar @canino/shared
 npm run build:api    # Compilar API
 npm run build:web    # Compilar frontend
 npm run seed         # Cargar datos de prueba

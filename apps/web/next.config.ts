@@ -3,6 +3,7 @@ import path from "path";
 
 const nextConfig: NextConfig = {
   output: "standalone",
+  transpilePackages: ["@canino/shared"],
   turbopack: {
     root: path.join(__dirname, "../.."),
   },

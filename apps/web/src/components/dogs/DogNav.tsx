@@ -12,10 +12,10 @@ import {
   Star,
   Shirt,
   Camera,
-  Shield,
   Flower2,
 } from 'lucide-react';
 
+// Seguro (/insurance) oculto hasta V2 — la ruta stub sigue existiendo.
 const tabs = [
   { href: '', label: 'Perfil', icon: Heart, suffix: '' },
   { href: '/timeline', label: 'Línea de tiempo', icon: Clock },
@@ -25,7 +25,6 @@ const tabs = [
   { href: '/preferences', label: 'Gustos', icon: Star },
   { href: '/wardrobe', label: 'Guardarropa', icon: Shirt },
   { href: '/memories', label: 'Recuerdos', icon: Camera },
-  { href: '/insurance', label: 'Seguro', icon: Shield },
   { href: '/memorial', label: 'Memorial', icon: Flower2 },
 ];
 

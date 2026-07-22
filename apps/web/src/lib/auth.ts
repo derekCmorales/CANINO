@@ -1,4 +1,5 @@
-import type { User, UserRole, AdminSubtype } from '@/types';
+import { AdminSubtype, UserRole } from '@canino/shared';
+import type { User } from '@/types';
 
 const TOKEN_KEY = 'pc_access_token';
 const ROLE_KEY = 'pc_role';
@@ -65,11 +66,11 @@ export function isAuthenticated(): boolean {
 
 export function getDashboardPath(role: UserRole, adminSubtype?: AdminSubtype | null): string {
   switch (role) {
-    case 'veterinarian':
+    case UserRole.VETERINARIAN:
       return '/vet';
-    case 'admin':
-      if (adminSubtype === 'catalog_manager') return '/admin/catalogs';
-      if (adminSubtype === 'operations') return '/admin/users';
+    case UserRole.ADMIN:
+      if (adminSubtype === AdminSubtype.CATALOG_MANAGER) return '/admin/catalogs';
+      if (adminSubtype === AdminSubtype.OPERATIONS) return '/admin/users';
       return '/admin/overview';
     default:
       return '/dashboard';
